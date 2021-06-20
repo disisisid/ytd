@@ -7,7 +7,7 @@ from pytube import YouTube
 app = Flask(__name__)
 
 
-@app.route('/music')
+@app.route('/music/')
 def downloadVid():
   url = request.args.get("url")
   # url = 'https://www.youtube.com/watch?v=dRVjgd__AGk'
@@ -44,5 +44,5 @@ def convertmp42mp3(fileName):
   video.audio.write_audiofile(os.path.join(curr_path, song_name + '.mp3'))
 
 
-url = 'https://www.youtube.com/watch?v=dRVjgd__AGk'
-downloadVid()
+# url = 'https://www.youtube.com/watch?v=dRVjgd__AGk'
+# downloadVid()
