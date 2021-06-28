@@ -24,8 +24,8 @@ def downloadAudio():
   audio = streams.filter(only_audio=True).filter(file_extension='mp4').first()
   title = audio.title
   print('title: ' + title)
-  audio.download()
-  return send_from_directory('.', title + '.mp4')
+  audio.download('streams')
+  return send_from_directory('streams', title + '.mp4')
 
 @app.route('/video')
 def downloadVid():
