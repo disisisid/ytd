@@ -19,8 +19,8 @@ def downloadMp3():
   url = request.args.get("url")
   print('pageUrl: ' + url)
   streams = YouTube(url).streams#.first().download()
-#  vidUrl = streams.first().url 
-  vidUrl = streams.filter(only_audio=True).last().url 
+  print('audio streams: ' + str(streams.filter(only_audio=True)))
+  vidUrl = streams.filter(only_audio=True).first().url 
   print('vidUrl: ' + vidUrl)
   return redirect(vidUrl)
 
