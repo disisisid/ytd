@@ -14,8 +14,8 @@ def downloadMusic():
   # return(vidUrl)
   return redirect(vidUrl)
 
-@app.route('/mp3')
-def downloadMp3():
+@app.route('/audio')
+def downloadAudio():
   url = request.args.get("url")
   print('pageUrl: ' + url)
   streams = YouTube(url).streams#.first().download()
