@@ -1,6 +1,8 @@
 import os
 from flask import Flask, request, redirect
 from pytube import YouTube
+#from werkzeug.utils import send_file
+from flask import send_from_directory
 
 app = Flask(__name__)
 
@@ -8,7 +10,7 @@ app = Flask(__name__)
 def downloadMusic():
   url = request.args.get("url")
   print('pageUrl: ' + url)
-  streams = YouTube(url).streams#.first().download()
+  streams = YouTube(url).streams
   vidUrl = streams.first().url 
   print('vidUrl: ' + vidUrl)
   # return(vidUrl)
@@ -18,11 +20,12 @@ def downloadMusic():
 def downloadAudio():
   url = request.args.get("url")
   print('pageUrl: ' + url)
-  streams = YouTube(url).streams#.first().download()
-  print('audio streams: ' + str(streams.filter(only_audio=True)))
-  vidUrl = streams.filter(only_audio=True).first().url 
-  print('vidUrl: ' + vidUrl)
-  return redirect(vidUrl)
+  streams = YouTube(url).streams
+  audio = streams.filter(only_audio=True).filter(file_extension='mp4').first()
+  title = audio.title
+  print('title: ' + title)
+  audio.download()
+  return send_from_directory('.', title + '.mp4')
 
 @app.route('/video')
 def downloadVid():
@@ -34,4 +37,4 @@ def downloadVid():
   return redirect(vidUrl)  
 
 if __name__ == "__main__": 
-        app.run()
+  app.run()
